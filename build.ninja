@@ -1,4 +1,4 @@
-cflags = -g -fPIC -Isrc -ansi -pedantic -Wall -Wextra -Weverything
+cflags = -O3 -fPIC -Isrc -ansi -pedantic -Wall -Wextra -Weverything
 ldflags = 
 
 rule compile
@@ -9,7 +9,8 @@ rule link
 
 build obj/access.o: compile src/access.c
 build obj/init.o: compile src/init.c
+build obj/io.o: compile src/io.c
 build obj/ops.o: compile src/ops.c
 
-build bin/libmsis.so: link obj/access.o obj/init.o obj/ops.o
+build bin/libmsis.so: link obj/access.o obj/init.o obj/io.o obj/ops.o
 

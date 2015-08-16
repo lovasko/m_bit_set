@@ -16,6 +16,9 @@ int m_smallintset_init(struct m_smallintset* sis);
 int m_smallintset_copy(struct m_smallintset* sis_src,
                        struct m_smallintset* sis_dst);
 
+int m_smallintset_read(struct m_smallintset* sis, int fd);
+int m_smallintset_write(struct m_smallintset* sis, int fd);
+
 int m_smallintset_add(struct m_smallintset* sis, uint16_t value);
 int m_smallintset_add_all(struct m_smallintset* sis);
 int m_smallintset_remove(struct m_smallintset* sis, uint16_t value);
