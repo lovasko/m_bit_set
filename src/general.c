@@ -15,6 +15,17 @@ m_smallintset_init(struct m_smallintset* sis)
 }
 
 int
+m_smallintset_free(struct m_smallintset* sis)
+{
+	if (sis == NULL)
+		return M_SMALLINTSET_E_NULL;
+
+	free(sis->data);
+
+	return M_SMALLINTSET_OK;
+}
+
+int
 m_smallintset_copy(struct m_smallintset* sis_src,
                    struct m_smallintset* sis_dst)
 {
