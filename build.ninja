@@ -12,5 +12,5 @@ build obj/general.o: compile src/general.c
 build obj/io.o: compile src/io.c
 build obj/ops.o: compile src/ops.c
 
-build bin/libmsis.so: link obj/access.o obj/general.o obj/io.o obj/ops.o
+build bin/libm_smallintset.so: link obj/access.o obj/general.o obj/io.o obj/ops.o
 
