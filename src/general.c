@@ -59,3 +59,26 @@ m_smallintset_copy(struct m_smallintset* sis_src,
 	return M_SMALLINTSET_OK;
 }
 
+int
+m_smallintset_error_string(int code, char** out_error_string)
+{
+	char* error_strings[] = {
+		"False",
+		"True",
+		"OK",
+		"One of the objects is NULL",
+		"Size of the memory is zero",
+		"Unknown return code"
+	};
+
+	if (out_error_string == NULL)
+		return M_SMALLINTSET_E_NULL;
+
+	if (code < 0 || code > M_SMALLINTSET_E_MAX) {
+		*out_error_string = NULL;
+		return M_SMALLINTSET_E_UNKNOWN_CODE;
+	}
+
+	*out_error_string = error_strings[code];
+	return M_SMALLINTSET_OK;
+}
