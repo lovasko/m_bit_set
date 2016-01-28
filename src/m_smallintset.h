@@ -3,11 +3,12 @@
 
 #include <stdint.h>
 
-#define M_SMALLINTSET_OK     0
 #define M_SMALLINTSET_FALSE  0
 #define M_SMALLINTSET_TRUE   1
-#define M_SMALLINTSET_E_NULL 2
-#define M_SMALLINTSET_E_SIZE 3
+#define M_SMALLINTSET_OK     2
+#define M_SMALLINTSET_E_NULL 3
+#define M_SMALLINTSET_E_SIZE 4
+#define M_SMALLINTSET_E_MAX  4
 
 struct m_smallintset {
 	uint8_t* data;
