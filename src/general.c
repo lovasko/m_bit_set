@@ -4,12 +4,24 @@
 #include "m_smallintset.h"
 
 int
-m_smallintset_init(struct m_smallintset* sis)
+m_smallintset_init(struct m_smallintset* sis, uint64_t max, uint8_t* data)
 {
 	if (sis == NULL)
 		return M_SMALLINTSET_E_NULL;
 
-	sis->data = malloc(8192);
+	if (max == 0)
+		return M_SMALLINTSET_E_SIZE;
+
+	sis->size = (size_t)(max/8) + 1;
+
+	if (data == NULL) {
+		sis->data = malloc(sis->size);
+		sis->own_memory = 1;
+	}
+	else {
+		sis->data = data;
+		sis->own_memory = 0;
+	}
 
 	return M_SMALLINTSET_OK;
 }
@@ -20,9 +32,16 @@ m_smallintset_free(struct m_smallintset* sis)
 	if (sis == NULL)
 		return M_SMALLINTSET_E_NULL;
 
-	free(sis->data);
+	if (sis->own_memory)
+		free(sis->data);
 
 	return M_SMALLINTSET_OK;
+}
+
+static size_t
+size_t_min(size_t a, size_t b)
+{
+	return (a < b) ? a : b;
 }
 
 int
@@ -33,7 +52,10 @@ m_smallintset_copy(struct m_smallintset* sis_src,
 	 || sis_dst == NULL || sis_dst->data == NULL)
 		return M_SMALLINTSET_E_NULL;
 
-	memcpy(sis_dst->data, sis_src->data, 8192);
+	memcpy(sis_dst->data,
+	       sis_src->data,
+	       size_t_min(sis_src->size, sis_dst->size));
+
 	return M_SMALLINTSET_OK;
 }
 
