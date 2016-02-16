@@ -12,9 +12,9 @@ main(void)
 	struct m_smallintset fizz_buzz;
 	uint16_t i;
 
-	m_smallintset_init(&fizz);
-	m_smallintset_init(&buzz);
-	m_smallintset_init(&fizz_buzz);
+	m_smallintset_init(&fizz, 65536, NULL);
+	m_smallintset_init(&buzz, 65536, NULL);
+	m_smallintset_init(&fizz_buzz, 65536, NULL);
 
 	for (i = 0; i < 0xffff; i++)
 		if (i % 3 == 0)
@@ -30,6 +30,10 @@ main(void)
 	for (i = 0; i < 0xffff; i++)
 		if (m_smallintset_contains(&fizz_buzz, i) == M_SMALLINTSET_TRUE)
 			printf("Fizz buzz! %d\n", i);
+
+	m_smallintset_free(&fizz);
+	m_smallintset_free(&buzz);
+	m_smallintset_free(&fizz_buzz);
 
 	return EXIT_SUCCESS;
 }
