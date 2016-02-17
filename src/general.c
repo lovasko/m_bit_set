@@ -13,6 +13,7 @@ m_bit_set_init(struct m_bit_set* bs, uint32_t max, uint8_t* data)
 		return M_BIT_SET_E_SIZE;
 
 	bs->size = (size_t)(max/8) + 1;
+	bs->max = max;
 
 	if (data == NULL) {
 		bs->data = malloc(bs->size);
