@@ -1,33 +1,33 @@
 #include <unistd.h>
 
-#include "m_smallintset.h"
+#include "m_bit_set.h"
 
 int
-m_smallintset_read(struct m_smallintset* sis, int fd)
+m_bit_set_read(struct m_bit_set* bs, int fd)
 {
-	uint64_t size;
+	uint32_t size;
 
-	if (sis == NULL)
-		return M_SMALLINTSET_E_NULL;
+	if (bs == NULL)
+		return M_BIT_SET_E_NULL;
 		
-	read(fd, &size, sizeof(uint64_t));
-	read(fd, sis->data, (size_t)size);
+	read(fd, &size, sizeof(uint32_t));
+	read(fd, bs->data, (size_t)size);
 
-	return M_SMALLINTSET_OK;
+	return M_BIT_SET_OK;
 }
 
 int
-m_smallintset_write(struct m_smallintset* sis, int fd)
+m_bit_set_write(struct m_bit_set* bs, int fd)
 {
-	uint64_t size;
+	uint32_t size;
 
-	if (sis == NULL)
-		return M_SMALLINTSET_E_NULL;
+	if (bs == NULL)
+		return M_BIT_SET_E_NULL;
 		
-	size = (uint64_t)sis->size;
-	write(fd, &size, sizeof(uint64_t));
-	write(fd, sis->data, sis->size);
+	size = (uint32_t)bs->size;
+	write(fd, &size, sizeof(uint32_t));
+	write(fd, bs->data, bs->size);
 
-	return M_SMALLINTSET_OK;
+	return M_BIT_SET_OK;
 }
 

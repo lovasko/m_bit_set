@@ -1,36 +1,36 @@
-#ifndef M_SMALLINTSET_H
-#define M_SMALLINTSET_H
+#ifndef M_BIT_SET_H
+#define M_BIT_SET_H
 
 #include <stdint.h>
 
-#define M_SMALLINTSET_FALSE          0
-#define M_SMALLINTSET_TRUE           1
-#define M_SMALLINTSET_OK             2
-#define M_SMALLINTSET_E_NULL         3
-#define M_SMALLINTSET_E_SIZE         4
-#define M_SMALLINTSET_E_UNKNOWN_CODE 5
-#define M_SMALLINTSET_E_MAX          5
+#define M_BIT_SET_FALSE          0
+#define M_BIT_SET_TRUE           1
+#define M_BIT_SET_OK             2
+#define M_BIT_SET_E_NULL         3
+#define M_BIT_SET_E_SIZE         4
+#define M_BIT_SET_E_UNKNOWN_CODE 5
+#define M_BIT_SET_E_MAX          5
 
-struct m_smallintset {
+struct m_bit_set {
 	uint8_t* data;
 	size_t size;
 	int own_memory;
 };
 
-int m_smallintset_init(struct m_smallintset* sis, uint64_t max, uint8_t* data);
-int m_smallintset_free(struct m_smallintset* sis);
-int m_smallintset_copy(struct m_smallintset* sis_src, struct m_smallintset* sis_dst);
-int m_smallintset_read(struct m_smallintset* sis, int fd);
-int m_smallintset_write(struct m_smallintset* sis, int fd);
-int m_smallintset_add(struct m_smallintset* sis, uint64_t value);
-int m_smallintset_add_all(struct m_smallintset* sis);
-int m_smallintset_remove(struct m_smallintset* sis, uint64_t value);
-int m_smallintset_remove_all(struct m_smallintset* sis);
-int m_smallintset_contains(struct m_smallintset* sis, uint64_t value);
-int m_smallintset_union(struct m_smallintset* sis_a, struct m_smallintset* sis_b);
-int m_smallintset_intersect(struct m_smallintset* sis_a, struct m_smallintset* sis_b);
-int m_smallintset_complement(struct m_smallintset* sis);
-int m_smallintset_error_string(int code, char** out_error_string);
+int m_bit_set_init(struct m_bit_set* bs, uint32_t max, uint8_t* data);
+int m_bit_set_free(struct m_bit_set* bs);
+int m_bit_set_copy(struct m_bit_set* bs_src, struct m_bit_set* bs_dst);
+int m_bit_set_read(struct m_bit_set* bs, int fd);
+int m_bit_set_write(struct m_bit_set* bs, int fd);
+int m_bit_set_add(struct m_bit_set* bs, uint32_t value);
+int m_bit_set_add_all(struct m_bit_set* bs);
+int m_bit_set_remove(struct m_bit_set* bs, uint32_t value);
+int m_bit_set_remove_all(struct m_bit_set* bs);
+int m_bit_set_test(struct m_bit_set* bs, uint32_t value);
+int m_bit_set_union(struct m_bit_set* bs_a, struct m_bit_set* bs_b);
+int m_bit_set_intersect(struct m_bit_set* bs_a, struct m_bit_set* bs_b);
+int m_bit_set_complement(struct m_bit_set* bs);
+int m_bit_set_error_string(int code, char** out_error_string);
 
 #endif
 

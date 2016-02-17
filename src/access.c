@@ -1,57 +1,57 @@
 #include <stddef.h>
 #include <string.h>
 
-#include "m_smallintset.h"
+#include "m_bit_set.h"
 
 int
-m_smallintset_contains(struct m_smallintset* sis, uint64_t value)
+m_bit_set_test(struct m_bit_set* bs, uint32_t value)
 {
-	if (sis == NULL || sis->data == NULL)
-		return M_SMALLINTSET_E_NULL;
+	if (bs == NULL || bs->data == NULL)
+		return M_BIT_SET_E_NULL;
 
-	return !!(sis->data[value / 8] & (1 << (value % 8)));
+	return !!(bs->data[value / 8] & (1 << (value % 8)));
 }
 
 int
-m_smallintset_add(struct m_smallintset* sis, uint64_t value)
+m_bit_set_add(struct m_bit_set* bs, uint32_t value)
 {
-	if (sis == NULL || sis->data == NULL)
-		return M_SMALLINTSET_E_NULL;
+	if (bs == NULL || bs->data == NULL)
+		return M_BIT_SET_E_NULL;
 
-	sis->data[value/8] |= (1 << (value % 8));
-	return M_SMALLINTSET_OK;
+	bs->data[value/8] |= (1 << (value % 8));
+	return M_BIT_SET_OK;
 }
 
 int
-m_smallintset_add_all(struct m_smallintset* sis)
+m_bit_set_add_all(struct m_bit_set* bs)
 {
-	if (sis == NULL || sis->data == NULL)
-		return M_SMALLINTSET_E_NULL;
+	if (bs == NULL || bs->data == NULL)
+		return M_BIT_SET_E_NULL;
 
-	memset(sis->data, 0xff, sis->size);
+	memset(bs->data, 0xff, bs->size);
 
-	return M_SMALLINTSET_OK;
+	return M_BIT_SET_OK;
 }
 
 int
-m_smallintset_remove(struct m_smallintset* sis, uint64_t value)
+m_bit_set_remove(struct m_bit_set* bs, uint32_t value)
 {
-	if (sis == NULL || sis->data == NULL)
-		return M_SMALLINTSET_E_NULL;
+	if (bs == NULL || bs->data == NULL)
+		return M_BIT_SET_E_NULL;
 
-	sis->data[value/8] &= 0xff ^ (1 << (value % 8));
+	bs->data[value/8] &= 0xff ^ (1 << (value % 8));
 
-	return M_SMALLINTSET_OK;
+	return M_BIT_SET_OK;
 }
 
 int
-m_smallintset_remove_all(struct m_smallintset* sis)
+m_bit_set_remove_all(struct m_bit_set* bs)
 {
-	if (sis == NULL || sis->data == NULL)
-		return M_SMALLINTSET_E_NULL;
+	if (bs == NULL || bs->data == NULL)
+		return M_BIT_SET_E_NULL;
 
-	memset(sis->data, 0, sis->size);
+	memset(bs->data, 0, bs->size);
 
-	return M_SMALLINTSET_OK;
+	return M_BIT_SET_OK;
 }
 

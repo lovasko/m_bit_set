@@ -1,41 +1,41 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "m_smallintset.h"
+#include "m_bit_set.h"
 
 int
-m_smallintset_init(struct m_smallintset* sis, uint64_t max, uint8_t* data)
+m_bit_set_init(struct m_bit_set* bs, uint32_t max, uint8_t* data)
 {
-	if (sis == NULL)
-		return M_SMALLINTSET_E_NULL;
+	if (bs == NULL)
+		return M_BIT_SET_E_NULL;
 
 	if (max == 0)
-		return M_SMALLINTSET_E_SIZE;
+		return M_BIT_SET_E_SIZE;
 
-	sis->size = (size_t)(max/8) + 1;
+	bs->size = (size_t)(max/8) + 1;
 
 	if (data == NULL) {
-		sis->data = malloc(sis->size);
-		sis->own_memory = 1;
+		bs->data = malloc(bs->size);
+		bs->own_memory = 1;
 	}
 	else {
-		sis->data = data;
-		sis->own_memory = 0;
+		bs->data = data;
+		bs->own_memory = 0;
 	}
 
-	return M_SMALLINTSET_OK;
+	return M_BIT_SET_OK;
 }
 
 int
-m_smallintset_free(struct m_smallintset* sis)
+m_bit_set_free(struct m_bit_set* bs)
 {
-	if (sis == NULL)
-		return M_SMALLINTSET_E_NULL;
+	if (bs == NULL)
+		return M_BIT_SET_E_NULL;
 
-	if (sis->own_memory)
-		free(sis->data);
+	if (bs->own_memory)
+		free(bs->data);
 
-	return M_SMALLINTSET_OK;
+	return M_BIT_SET_OK;
 }
 
 static size_t
@@ -45,22 +45,20 @@ size_t_min(size_t a, size_t b)
 }
 
 int
-m_smallintset_copy(struct m_smallintset* sis_src,
-                   struct m_smallintset* sis_dst)
+m_bit_set_copy(struct m_bit_set* bs_src, struct m_bit_set* bs_dst)
 {
-	if (sis_src == NULL || sis_src->data == NULL
-	 || sis_dst == NULL || sis_dst->data == NULL)
-		return M_SMALLINTSET_E_NULL;
+	if (bs_src == NULL || bs_src->data == NULL
+	 || bs_dst == NULL || bs_dst->data == NULL)
+		return M_BIT_SET_E_NULL;
 
-	memcpy(sis_dst->data,
-	       sis_src->data,
-	       size_t_min(sis_src->size, sis_dst->size));
+	memcpy(bs_dst->data, bs_src->data,
+	       size_t_min(bs_src->size, bs_dst->size));
 
-	return M_SMALLINTSET_OK;
+	return M_BIT_SET_OK;
 }
 
 int
-m_smallintset_error_string(int code, char** out_error_string)
+m_bit_set_error_string(int code, char** out_error_string)
 {
 	char* error_strings[] = {
 		"False",
@@ -72,13 +70,14 @@ m_smallintset_error_string(int code, char** out_error_string)
 	};
 
 	if (out_error_string == NULL)
-		return M_SMALLINTSET_E_NULL;
+		return M_BIT_SET_E_NULL;
 
-	if (code < 0 || code > M_SMALLINTSET_E_MAX) {
+	if (code < 0 || code > M_BIT_SET_E_MAX) {
 		*out_error_string = NULL;
-		return M_SMALLINTSET_E_UNKNOWN_CODE;
+		return M_BIT_SET_E_UNKNOWN_CODE;
 	}
 
 	*out_error_string = error_strings[code];
-	return M_SMALLINTSET_OK;
+	return M_BIT_SET_OK;
 }
+
