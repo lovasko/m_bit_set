@@ -1,3 +1,4 @@
+#include <sys/endian.h>
 #include <unistd.h>
 
 #include "m_bit_set.h"
@@ -11,6 +12,8 @@ m_bit_set_read(struct m_bit_set* bs, int fd)
 		return M_BIT_SET_E_NULL;
 		
 	read(fd, &size, sizeof(uint32_t));
+	bs->size = 
+
 	read(fd, bs->data, (size_t)size);
 
 	return M_BIT_SET_OK;

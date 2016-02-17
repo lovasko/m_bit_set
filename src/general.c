@@ -66,6 +66,8 @@ m_bit_set_error_string(int code, char** out_error_string)
 		"OK",
 		"One of the objects is NULL",
 		"Size of the memory is zero",
+		"Value out of range",
+		"I/O error",
 		"Unknown return code"
 	};
 

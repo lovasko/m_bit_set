@@ -8,12 +8,15 @@
 #define M_BIT_SET_OK             2
 #define M_BIT_SET_E_NULL         3
 #define M_BIT_SET_E_SIZE         4
-#define M_BIT_SET_E_UNKNOWN_CODE 5
-#define M_BIT_SET_E_MAX          5
+#define M_BIT_SET_E_RANGE        5
+#define M_BIT_SET_E_IO           6
+#define M_BIT_SET_E_UNKNOWN_CODE 7
+#define M_BIT_SET_E_MAX          7
 
 struct m_bit_set {
 	uint8_t* data;
-	size_t size;
+	uint32_t size;
+	uint32_t max;
 	int own_memory;
 };
 

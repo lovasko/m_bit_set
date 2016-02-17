@@ -9,6 +9,9 @@ m_bit_set_test(struct m_bit_set* bs, uint32_t value)
 	if (bs == NULL || bs->data == NULL)
 		return M_BIT_SET_E_NULL;
 
+	if (value >= bs->max)
+		return M_BIT_SET_E_RANGE;
+
 	return !!(bs->data[value / 8] & (1 << (value % 8)));
 }
 
@@ -17,6 +20,9 @@ m_bit_set_add(struct m_bit_set* bs, uint32_t value)
 {
 	if (bs == NULL || bs->data == NULL)
 		return M_BIT_SET_E_NULL;
+
+	if (value >= bs->max)
+		return M_BIT_SET_E_RANGE;
 
 	bs->data[value/8] |= (1 << (value % 8));
 	return M_BIT_SET_OK;
@@ -38,6 +44,9 @@ m_bit_set_remove(struct m_bit_set* bs, uint32_t value)
 {
 	if (bs == NULL || bs->data == NULL)
 		return M_BIT_SET_E_NULL;
+
+	if (value >= bs->max)
+		return M_BIT_SET_E_RANGE;
 
 	bs->data[value/8] &= 0xff ^ (1 << (value % 8));
 
