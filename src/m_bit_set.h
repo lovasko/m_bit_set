@@ -22,7 +22,7 @@ struct m_bit_set {
 
 int m_bit_set_init(struct m_bit_set* bs, uint32_t max, uint8_t* data);
 int m_bit_set_free(struct m_bit_set* bs);
-int m_bit_set_copy(struct m_bit_set* bs_src, struct m_bit_set* bs_dst);
+int m_bit_set_copy(struct m_bit_set* bs_dst, struct m_bit_set* bs_src);
 int m_bit_set_read(struct m_bit_set* bs, int fd);
 int m_bit_set_write(struct m_bit_set* bs, int fd);
 int m_bit_set_add(struct m_bit_set* bs, uint32_t value);

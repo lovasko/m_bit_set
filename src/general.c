@@ -46,7 +46,7 @@ size_t_min(size_t a, size_t b)
 }
 
 int
-m_bit_set_copy(struct m_bit_set* bs_src, struct m_bit_set* bs_dst)
+m_bit_set_copy(struct m_bit_set* bs_dst, struct m_bit_set* bs_src)
 {
 	if (bs_src == NULL || bs_src->data == NULL
 	 || bs_dst == NULL || bs_dst->data == NULL)
