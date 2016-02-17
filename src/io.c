@@ -1,5 +1,6 @@
 #include <sys/endian.h>
 #include <unistd.h>
+#include <errno.h>
 
 #include "m_bit_set.h"
 
@@ -7,14 +8,23 @@ int
 m_bit_set_read(struct m_bit_set* bs, int fd)
 {
 	uint32_t size;
+	uint32_t max;
 
 	if (bs == NULL)
 		return M_BIT_SET_E_NULL;
-		
-	read(fd, &size, sizeof(uint32_t));
-	bs->size = 
 
-	read(fd, bs->data, (size_t)size);
+	errno = 0;
+	if (read(fd, &size, sizeof(uint32_t)) != 4)
+		return M_BIT_SET_E_IO;
+
+	if (read(fd, &max, sizeof(uint32_t)) != 4)
+		return M_BIT_SET_E_IO;
+
+	bs->size = be32toh(size);
+	bs->max = be32toh(max);
+
+	if (read(fd, bs->data, bs->size) != (ssize_t)bs->size)
+		return M_BIT_SET_E_IO;
 
 	return M_BIT_SET_OK;
 }
@@ -22,14 +32,24 @@ m_bit_set_read(struct m_bit_set* bs, int fd)
 int
 m_bit_set_write(struct m_bit_set* bs, int fd)
 {
+	uint32_t max;
 	uint32_t size;
 
 	if (bs == NULL)
 		return M_BIT_SET_E_NULL;
-		
-	size = (uint32_t)bs->size;
-	write(fd, &size, sizeof(uint32_t));
-	write(fd, bs->data, bs->size);
+
+	max = htobe32(bs->max);
+	size = htobe32(bs->size);
+
+	errno = 0;
+	if (write(fd, &size, sizeof(uint32_t)) != 4)
+		return M_BIT_SET_E_IO;
+
+	if (write(fd, &max, sizeof(uint32_t)) != 4)
+		return M_BIT_SET_E_IO;
+
+	if (write(fd, bs->data, (size_t)bs->size) != (ssize_t)bs->size)
+		return M_BIT_SET_E_IO;
 
 	return M_BIT_SET_OK;
 }
