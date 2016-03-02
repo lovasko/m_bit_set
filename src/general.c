@@ -65,6 +65,30 @@ m_bit_set_copy(struct m_bit_set* bs_dst, struct m_bit_set* bs_src)
 }
 
 int
+m_bit_set_dup(struct m_bit_set* bs_dup,
+              struct m_bit_set* bs_orig,
+              uint8_t* data)
+{
+	if (bs_dup == NULL || bs_dup->data == NULL
+	 || bs_orig == NULL || bs_orig->data == NULL)
+	 	return M_BIT_SET_E_NULL;
+
+	if (data == NULL) {
+		bs_dup->data = malloc(bs_orig->size);
+		bs_dup->own_memory = 0;
+	} else {
+		bs_dup->data = data;
+		bs_dup->own_memory = 1;
+	}
+
+	bs_dup->size = bs_orig->size;
+	bs_dup->max = bs_orig->max;
+	memcpy(bs_dup->data, bs_orig->data, bs_orig->size);
+
+	return M_BIT_SET_OK;
+}
+
+int
 m_bit_set_resize(struct m_bit_set* bs, uint32_t new_max, uint8_t fill)
 {
 	uint32_t new_size;
