@@ -3,6 +3,18 @@
 
 #include "m_bit_set.h"
 
+static size_t
+size_t_min(size_t a, size_t b)
+{
+	return (a < b) ? a : b;
+}
+
+static size_t
+compute_size(uint32_t max)
+{
+	return ((size_t)(max/8) + 1);
+}
+
 int
 m_bit_set_init(struct m_bit_set* bs, uint32_t max, uint8_t* data)
 {
@@ -12,7 +24,7 @@ m_bit_set_init(struct m_bit_set* bs, uint32_t max, uint8_t* data)
 	if (max == 0)
 		return M_BIT_SET_E_SIZE;
 
-	bs->size = (size_t)(max/8) + 1;
+	bs->size = compute_size(max);
 	bs->max = max;
 
 	if (data == NULL) {
@@ -39,12 +51,6 @@ m_bit_set_free(struct m_bit_set* bs)
 	return M_BIT_SET_OK;
 }
 
-static size_t
-size_t_min(size_t a, size_t b)
-{
-	return (a < b) ? a : b;
-}
-
 int
 m_bit_set_copy(struct m_bit_set* bs_dst, struct m_bit_set* bs_src)
 {
@@ -54,6 +60,50 @@ m_bit_set_copy(struct m_bit_set* bs_dst, struct m_bit_set* bs_src)
 
 	memcpy(bs_dst->data, bs_src->data,
 	       size_t_min(bs_src->size, bs_dst->size));
+
+	return M_BIT_SET_OK;
+}
+
+int
+m_bit_set_resize(struct m_bit_set* bs, uint32_t new_max, uint8_t fill)
+{
+	uint32_t new_size;
+	uint8_t mask;
+
+	if (bs == NULL)
+		return M_BIT_SET_E_NULL;
+
+	if (new_max == 0)
+		return M_BIT_SET_E_COUNT;
+
+	if (fill != M_BIT_SET_TRUE && fill != M_BIT_SET_FALSE)
+		return M_BIT_SET_E_VALUE;
+
+	if (bs->max == new_max)
+		return M_BIT_SET_OK;
+
+	new_size = compute_size(new_max);
+
+	if (bs->own_memory)
+		bs->data = realloc(bs->data, bs->size);
+
+	if (bs->max < new_max) {
+		if (bs->max % 8 != 0) {
+			mask = (uint8_t)(1 << (8 - bs->max % 8)) - 1;
+
+			if (fill == M_BIT_SET_TRUE)
+				bs->data[bs->size - 1] |= ~mask;
+			else
+				bs->data[bs->size - 1] &= mask;
+		}
+
+		memset(bs->data + bs->size,
+		       fill == M_BIT_SET_TRUE ? 255 : 0,
+		       new_size - bs->size);
+	}
+
+	bs->size = compute_size(new_max);
+	bs->max = new_max;
 
 	return M_BIT_SET_OK;
 }

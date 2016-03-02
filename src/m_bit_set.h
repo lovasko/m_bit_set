@@ -9,9 +9,11 @@
 #define M_BIT_SET_E_NULL         3
 #define M_BIT_SET_E_SIZE         4
 #define M_BIT_SET_E_RANGE        5
-#define M_BIT_SET_E_IO           6
-#define M_BIT_SET_E_UNKNOWN_CODE 7
-#define M_BIT_SET_E_MAX          7
+#define M_BIT_SET_E_COUNT        6
+#define M_BIT_SET_E_VALUE        7
+#define M_BIT_SET_E_IO           8
+#define M_BIT_SET_E_UNKNOWN_CODE 9
+#define M_BIT_SET_E_MAX          9
 
 struct m_bit_set {
 	uint8_t* data;
@@ -23,6 +25,7 @@ struct m_bit_set {
 int m_bit_set_init(struct m_bit_set* bs, uint32_t max, uint8_t* data);
 int m_bit_set_free(struct m_bit_set* bs);
 int m_bit_set_copy(struct m_bit_set* bs_dst, struct m_bit_set* bs_src);
+int m_bit_set_resize(struct m_bit_set* bs, uint32_t new_max, uint8_t fill);
 int m_bit_set_read(struct m_bit_set* bs, int fd);
 int m_bit_set_write(struct m_bit_set* bs, int fd);
 int m_bit_set_add(struct m_bit_set* bs, uint32_t value);
