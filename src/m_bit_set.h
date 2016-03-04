@@ -27,7 +27,7 @@ int m_bit_set_free(m_bit_set* bs);
 int m_bit_set_copy(m_bit_set* bs_dst, m_bit_set* bs_src);
 int m_bit_set_dup(m_bit_set* bs_dup, m_bit_set* bs_orig, uint8_t* data);
 int m_bit_set_resize(m_bit_set* bs, uint32_t new_max, uint8_t fill);
-int m_bit_set_read(m_bit_set* bs, int fd);
+int m_bit_set_read(m_bit_set* bs, int fd, uint8_t* data);
 int m_bit_set_write(m_bit_set* bs, int fd);
 int m_bit_set_add(m_bit_set* bs, uint32_t value);
 int m_bit_set_add_all(m_bit_set* bs);
