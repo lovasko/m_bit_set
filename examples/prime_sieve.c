@@ -1,16 +1,20 @@
 #include <stdlib.h>
 #include <stdint.h>
+#include <unistd.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <math.h>
+
 #include <m_bit_set.h>
 
 int
 main(int argc, char* argv[])
 {
-	struct m_bit_set bs;
+	m_bit_set bs;
 	uint32_t i;
 	uint32_t k;
 	uint32_t n;
+	int fd;
 
 	if (argc < 2) {
 		fprintf(stderr, "Expected one argument.\n");
@@ -34,6 +38,15 @@ main(int argc, char* argv[])
 	for (i = 2; i < n; i++)
 		if (m_bit_set_test(&bs, i) == M_BIT_SET_TRUE)
 			printf("%d\n", i);
+
+	fd = open("primes.mbs", O_WRONLY | O_CREAT);
+	if (fd < 0) {
+		perror("open");
+		return EXIT_FAILURE;
+	}
+
+	m_bit_set_write(&bs, fd);
+	close(fd);
 
 	return EXIT_SUCCESS;
 }
