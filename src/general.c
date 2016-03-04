@@ -12,7 +12,7 @@ size_t_min(size_t a, size_t b)
 static size_t
 compute_size(uint32_t max)
 {
-	return ((size_t)(max/8) + 1);
+	return ((size_t)(max/8) + (max % 8 > 0));
 }
 
 int
