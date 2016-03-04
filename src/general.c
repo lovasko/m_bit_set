@@ -36,6 +36,8 @@ m_bit_set_init(m_bit_set* bs, uint32_t max, uint8_t* data)
 		bs->own_memory = 0;
 	}
 
+	memset(bs->data, 0, bs->size);
+
 	return M_BIT_SET_OK;
 }
 
