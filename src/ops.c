@@ -9,7 +9,7 @@ size_t_min(size_t a, size_t b)
 }
 
 int
-m_bit_set_union(struct m_bit_set* bs_a, struct m_bit_set* bs_b)
+m_bit_set_union(m_bit_set* bs_a, m_bit_set* bs_b)
 {
 	size_t i;
 
@@ -24,7 +24,7 @@ m_bit_set_union(struct m_bit_set* bs_a, struct m_bit_set* bs_b)
 }
 
 int
-m_bit_set_intersect(struct m_bit_set* bs_a, struct m_bit_set* bs_b)
+m_bit_set_intersect(m_bit_set* bs_a, m_bit_set* bs_b)
 {
 	size_t i;
 
@@ -39,7 +39,7 @@ m_bit_set_intersect(struct m_bit_set* bs_a, struct m_bit_set* bs_b)
 }
 
 int
-m_bit_set_complement(struct m_bit_set* bs)
+m_bit_set_complement(m_bit_set* bs)
 {
 	size_t i;
 

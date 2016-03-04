@@ -6,7 +6,7 @@
 #include "m_bit_set.h"
 
 int
-m_bit_set_read(struct m_bit_set* bs, int fd)
+m_bit_set_read(m_bit_set* bs, int fd)
 {
 	uint32_t size;
 	uint32_t max;
@@ -36,7 +36,7 @@ m_bit_set_read(struct m_bit_set* bs, int fd)
 }
 
 int
-m_bit_set_write(struct m_bit_set* bs, int fd)
+m_bit_set_write(m_bit_set* bs, int fd)
 {
 	uint32_t max;
 	uint32_t size;

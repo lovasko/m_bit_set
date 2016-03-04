@@ -16,7 +16,7 @@ compute_size(uint32_t max)
 }
 
 int
-m_bit_set_init(struct m_bit_set* bs, uint32_t max, uint8_t* data)
+m_bit_set_init(m_bit_set* bs, uint32_t max, uint8_t* data)
 {
 	if (bs == NULL)
 		return M_BIT_SET_E_NULL;
@@ -40,7 +40,7 @@ m_bit_set_init(struct m_bit_set* bs, uint32_t max, uint8_t* data)
 }
 
 int
-m_bit_set_free(struct m_bit_set* bs)
+m_bit_set_free(m_bit_set* bs)
 {
 	if (bs == NULL)
 		return M_BIT_SET_E_NULL;
@@ -52,7 +52,7 @@ m_bit_set_free(struct m_bit_set* bs)
 }
 
 int
-m_bit_set_copy(struct m_bit_set* bs_dst, struct m_bit_set* bs_src)
+m_bit_set_copy(m_bit_set* bs_dst, m_bit_set* bs_src)
 {
 	if (bs_src == NULL || bs_src->data == NULL
 	 || bs_dst == NULL || bs_dst->data == NULL)
@@ -65,9 +65,7 @@ m_bit_set_copy(struct m_bit_set* bs_dst, struct m_bit_set* bs_src)
 }
 
 int
-m_bit_set_dup(struct m_bit_set* bs_dup,
-              struct m_bit_set* bs_orig,
-              uint8_t* data)
+m_bit_set_dup(m_bit_set* bs_dup, m_bit_set* bs_orig, uint8_t* data)
 {
 	if (bs_dup == NULL || bs_dup->data == NULL
 	 || bs_orig == NULL || bs_orig->data == NULL)
@@ -89,7 +87,7 @@ m_bit_set_dup(struct m_bit_set* bs_dup,
 }
 
 int
-m_bit_set_resize(struct m_bit_set* bs, uint32_t new_max, uint8_t fill)
+m_bit_set_resize(m_bit_set* bs, uint32_t new_max, uint8_t fill)
 {
 	uint32_t new_size;
 	uint8_t mask;

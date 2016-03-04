@@ -4,7 +4,7 @@
 #include "m_bit_set.h"
 
 int
-m_bit_set_test(struct m_bit_set* bs, uint32_t value)
+m_bit_set_test(m_bit_set* bs, uint32_t value)
 {
 	if (bs == NULL || bs->data == NULL)
 		return M_BIT_SET_E_NULL;
@@ -16,7 +16,7 @@ m_bit_set_test(struct m_bit_set* bs, uint32_t value)
 }
 
 int
-m_bit_set_add(struct m_bit_set* bs, uint32_t value)
+m_bit_set_add(m_bit_set* bs, uint32_t value)
 {
 	if (bs == NULL || bs->data == NULL)
 		return M_BIT_SET_E_NULL;
@@ -29,7 +29,7 @@ m_bit_set_add(struct m_bit_set* bs, uint32_t value)
 }
 
 int
-m_bit_set_add_all(struct m_bit_set* bs)
+m_bit_set_add_all(m_bit_set* bs)
 {
 	if (bs == NULL || bs->data == NULL)
 		return M_BIT_SET_E_NULL;
@@ -40,7 +40,7 @@ m_bit_set_add_all(struct m_bit_set* bs)
 }
 
 int
-m_bit_set_remove(struct m_bit_set* bs, uint32_t value)
+m_bit_set_remove(m_bit_set* bs, uint32_t value)
 {
 	if (bs == NULL || bs->data == NULL)
 		return M_BIT_SET_E_NULL;
@@ -54,7 +54,7 @@ m_bit_set_remove(struct m_bit_set* bs, uint32_t value)
 }
 
 int
-m_bit_set_remove_all(struct m_bit_set* bs)
+m_bit_set_remove_all(m_bit_set* bs)
 {
 	if (bs == NULL || bs->data == NULL)
 		return M_BIT_SET_E_NULL;
