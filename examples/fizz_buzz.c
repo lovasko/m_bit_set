@@ -7,20 +7,20 @@
 int
 main(void)
 {
-	struct m_bit_set fizz;
-	struct m_bit_set buzz;
-	struct m_bit_set fizz_buzz;
+	m_bit_set fizz;
+	m_bit_set buzz;
+	m_bit_set fizz_buzz;
 	uint32_t i;
 
-	m_bit_set_init(&fizz, 65536, NULL);
-	m_bit_set_init(&buzz, 65536, NULL);
-	m_bit_set_init(&fizz_buzz, 65536, NULL);
+	m_bit_set_init(&fizz, 0xff, NULL);
+	m_bit_set_init(&buzz, 0xff, NULL);
+	m_bit_set_init(&fizz_buzz, 0xff, NULL);
 
-	for (i = 0; i < 0xffff; i++)
+	for (i = 0; i < 0xff; i++)
 		if (i % 3 == 0)
 			m_bit_set_add(&fizz, i);
 
-	for (i = 0; i < 0xffff; i++)
+	for (i = 0; i < 0xff; i++)
 		if (i % 5 == 0)
 			m_bit_set_add(&buzz, i);
 
