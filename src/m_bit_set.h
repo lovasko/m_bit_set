@@ -13,7 +13,8 @@
 #define M_BIT_SET_E_VALUE        7
 #define M_BIT_SET_E_IO           8
 #define M_BIT_SET_E_UNKNOWN_CODE 9
-#define M_BIT_SET_E_MAX          9
+#define M_BIT_SET_E_MAGIC       10
+#define M_BIT_SET_E_MAX         10
 
 typedef struct m_bit_set {
 	uint8_t* data;

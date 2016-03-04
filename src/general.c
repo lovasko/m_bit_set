@@ -143,7 +143,8 @@ m_bit_set_error_string(int code, char** out_error_string)
 		"Size of the memory is zero",
 		"Value out of range",
 		"I/O error",
-		"Unknown return code"
+		"Unknown return code",
+		"Magic number mismatch"
 	};
 
 	if (out_error_string == NULL)
