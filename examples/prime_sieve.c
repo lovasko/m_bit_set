@@ -24,6 +24,8 @@ main(int argc, char* argv[])
 	n = (uint32_t)atol(argv[1]);
 	m_bit_set_init(&bs, n, NULL);
 	m_bit_set_add_all(&bs);
+	m_bit_set_remove(&bs, 0);
+	m_bit_set_remove(&bs, 1);
 
 	for (i = 2; i < sqrt(n); i++) {
 		if (m_bit_set_test(&bs, i) == M_BIT_SET_FALSE)
