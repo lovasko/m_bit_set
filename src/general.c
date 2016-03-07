@@ -5,13 +5,16 @@
 #include "util.h"
 
 int
-m_bit_set_init(m_bit_set* bs, uint32_t max, uint8_t* data)
+m_bit_set_init(m_bit_set* bs, uint32_t max, uint8_t fill, uint8_t* data)
 {
 	if (bs == NULL)
 		return M_BIT_SET_E_NULL;
 
 	if (max == 0)
 		return M_BIT_SET_E_SIZE;
+
+	if (fill != M_BIT_SET_TRUE && fill != M_BIT_SET_FALSE)
+		return M_BIT_SET_E_VALUE;
 
 	bs->size = compute_size(max);
 	bs->max = max;
@@ -25,7 +28,8 @@ m_bit_set_init(m_bit_set* bs, uint32_t max, uint8_t* data)
 		bs->own_memory = 0;
 	}
 
-	memset(bs->data, 0, bs->size);
+	memset(bs->data, fill == M_BIT_SET_TRUE ? 255 : 0, bs->size);
+	cut_off(bs);
 
 	return M_BIT_SET_OK;
 }

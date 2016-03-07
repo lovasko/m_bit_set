@@ -23,7 +23,7 @@ typedef struct m_bit_set {
 	int own_memory;
 } m_bit_set;
 
-int m_bit_set_init(m_bit_set* bs, uint32_t max, uint8_t* data);
+int m_bit_set_init(m_bit_set* bs, uint32_t max, uint8_t fill, uint8_t* data);
 int m_bit_set_free(m_bit_set* bs);
 int m_bit_set_copy(m_bit_set* bs_dst, m_bit_set* bs_src);
 int m_bit_set_dup(m_bit_set* bs_dup, m_bit_set* bs_orig, uint8_t* data);
