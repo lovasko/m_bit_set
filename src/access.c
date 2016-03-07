@@ -2,6 +2,7 @@
 #include <string.h>
 
 #include "m_bit_set.h"
+#include "util.h"
 
 int
 m_bit_set_test(m_bit_set* bs, uint32_t value)
@@ -35,6 +36,7 @@ m_bit_set_add_all(m_bit_set* bs)
 		return M_BIT_SET_E_NULL;
 
 	memset(bs->data, 0xff, bs->size);
+	cut_off(bs);
 
 	return M_BIT_SET_OK;
 }
@@ -60,6 +62,7 @@ m_bit_set_remove_all(m_bit_set* bs)
 		return M_BIT_SET_E_NULL;
 
 	memset(bs->data, 0, bs->size);
+	cut_off(bs);
 
 	return M_BIT_SET_OK;
 }

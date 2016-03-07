@@ -11,6 +11,7 @@ build obj/access.o: compile src/access.c
 build obj/general.o: compile src/general.c
 build obj/io.o: compile src/io.c
 build obj/ops.o: compile src/ops.c
+build obj/util.o: compile src/util.c
 
-build bin/libmbitset.so: link obj/access.o obj/general.o obj/io.o obj/ops.o
+build bin/libmbitset.so: link obj/access.o obj/general.o obj/io.o obj/ops.o obj/util.o
 
