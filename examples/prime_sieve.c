@@ -22,8 +22,7 @@ main(int argc, char* argv[])
 	}
 
 	n = (uint32_t)atol(argv[1]);
-	m_bit_set_init(&bs, n, NULL);
-	m_bit_set_add_all(&bs);
+	m_bit_set_init(&bs, n, M_BIT_SET_TRUE, NULL);
 	m_bit_set_remove(&bs, 0);
 	m_bit_set_remove(&bs, 1);
 

@@ -12,9 +12,8 @@ main(void)
 	m_bit_set fizz_buzz;
 	uint32_t i;
 
-	m_bit_set_init(&fizz, 0xff, NULL);
-	m_bit_set_init(&buzz, 0xff, NULL);
-	m_bit_set_init(&fizz_buzz, 0xff, NULL);
+	m_bit_set_init(&fizz, 0xff, M_BIT_SET_FALSE, NULL);
+	m_bit_set_init(&buzz, 0xff, M_BIT_SET_FALSE, NULL);
 
 	for (i = 0; i < 0xff; i++)
 		if (i % 3 == 0)
@@ -24,7 +23,7 @@ main(void)
 		if (i % 5 == 0)
 			m_bit_set_add(&buzz, i);
 
-	m_bit_set_copy(&fizz_buzz, &fizz);
+	m_bit_set_dup(&fizz_buzz, &fizz, NULL);
 	m_bit_set_intersect(&fizz_buzz, &buzz);
 
 	for (i = 0; i < 0xff; i++) {
